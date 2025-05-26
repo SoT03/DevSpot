@@ -408,3 +408,4 @@ E:\RiderApps\DevSpot\DevSpot\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scriptin
 E:\RiderApps\DevSpot\DevSpot\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 E:\RiderApps\DevSpot\DevSpot\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 E:\RiderApps\DevSpot\DevSpot\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\RiderApps\DevSpot\DevSpot\obj\Debug\net9.0\DevSpot.sourcelink.json
