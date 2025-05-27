@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DevSpot.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -104,10 +105,18 @@ namespace DevSpot.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            // If user is already logged in, redirect them to home page
+            if (User.Identity.IsAuthenticated)
+            {
+                returnUrl ??= Url.Content("~/");
+                return LocalRedirect(returnUrl);
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

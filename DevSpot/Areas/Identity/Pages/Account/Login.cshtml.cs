@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DevSpot.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -84,8 +85,14 @@ namespace DevSpot.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            // If user is already logged in, redirect them to home page
+            if (User.Identity.IsAuthenticated)
+            {
+                return LocalRedirect(Url.Content("~/"));
+            }
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -99,6 +106,8 @@ namespace DevSpot.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+            
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
