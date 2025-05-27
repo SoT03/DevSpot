@@ -1,5 +1,6 @@
 ﻿using DevSpot.Models;
 using DevSpot.Repositories;
+using DevSpot.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,5 +27,27 @@ public class JobPostingsController : Controller
     public IActionResult Create()
     {
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(JobPostingViewModel jobPostingVm)
+    {
+        
+        if (ModelState.IsValid)
+        {
+            var jobPosting = new JobPosting
+            {
+                Title = jobPostingVm.Title,
+                Description = jobPostingVm.Description,
+                Company = jobPostingVm.Company,
+                Location = jobPostingVm.Location,
+                UserId = _userManager.GetUserId(User), //TODO: Add authorization to determinate null
+            };
+     
+            await _repository.AddAsync(jobPosting);
+        }
+        
+        
+        return RedirectToAction(nameof(Index));
     }
 }

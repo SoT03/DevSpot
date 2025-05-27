@@ -21,7 +21,6 @@ public class JobPosting
     [Required]
     public string Location { get; set; }
     
-    [Required]
     public DateTime PostedDate { get; set; } = DateTime.UtcNow;
     
     public bool IsApproved { get; set; }
